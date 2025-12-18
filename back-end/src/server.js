@@ -7,30 +7,15 @@ app.use(cors());
 
 //config BD
 import User from "./models/User.js";
+import Adress from "./models/Adress.js";
+import Client from "./models/Client.js";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 
 //rota autenticação
 import jwt from "jsonwebtoken";
 dotenv.config({ path: "../.env" });
-
-export default function auth(req, res, next) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ error: "Token não fornecido" });
-  }
-
-  const [, token] = authHeader.split(" ");
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // 🔥 dados disponíveis na rota
-    next();
-  } catch {
-    return res.status(401).json({ error: "Token inválido ou expirado" });
-  }
-}
+import auth from "./middleware/auth.js";
 
 app.get("/users", auth, async (req, res) => {
   const users = await User.findAll();
@@ -115,12 +100,18 @@ app.post("/singin", async (req, res) => {
   }
 });
 
-app.get("/cliente", (req, res) => {});
+app.get("/cliente", async (req, res) => {
+  const clients = await Client.findAll();
+  res.json(clients).status(200);
+});
 
 //rota cliente
 app.get("/cliente/:id", (req, res) => {});
 
-app.post("/cliente", (req, res) => {});
+app.post("/cliente", auth, (req, res) => {
+  const {nome, email, telefone, cpf, endereco} = req.body;
+  console.log({nome, email, telefone, cpf, endereco})
+});
 
 app.delete("/cliente", (req, res) => {});
 
