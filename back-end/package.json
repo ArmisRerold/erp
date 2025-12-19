@@ -17,5 +17,9 @@
     "prisma": "^7.1.0",
     "sequelize": "^6.37.7"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "dev": "node -r dotenv/config src/server.js",
+    "sync": "node -r dotenv/config src/models/sync.js"
+  }
 }

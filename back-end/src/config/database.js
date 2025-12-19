@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize";
 
+
+
 const sequelize = new Sequelize(
-  "postgres://postgres:arms14@localhost:5432/mini_erp",
+  String(process.env.DATABASE_URL),
   {
     dialect: "postgres",
     logging: false,
