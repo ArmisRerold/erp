@@ -1,122 +1,55 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import React from 'react';
 
-const columns = [
-    { id: 'id', label: 'ID', minWidth: 70 },
-
-    { id: 'nome', label: 'Produto', minWidth: 200 },
-
-    {
-        id: 'quantidade',
-        label: 'Quantidade',
-        minWidth: 120,
-        align: 'right',
-    },
-
-    {
-        id: 'valor',
-        label: 'Valor (R$)',
-        minWidth: 120,
-        align: 'right',
-        format: (value) =>
-            value.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-            }),
-    },
-
-    {
-        id: 'categoria',
-        label: 'Categoria',
-        minWidth: 150,
-    },
-];
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 
-function createData(id, nome, quantidade, valor, categoria) {
-    return { id, nome, quantidade, valor, categoria };
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
 
-
 const rows = [
-    createData(1, 'Teclado Mecânico', 15, 299.90, 'Periféricos'),
-    createData(2, 'Mouse Gamer', 32, 149.90, 'Periféricos'),
-    createData(3, 'Monitor 24"', 8, 899.99, 'Monitores'),
-    createData(4, 'Notebook i5', 5, 3499.00, 'Computadores'),
-    createData(5, 'HD Externo 1TB', 0, 389.90, 'Armazenamento'),
-    createData(6, 'SSD NVMe 512GB', 20, 459.90, 'Armazenamento'),
-    createData(7, 'Headset', 12, 219.90, 'Áudio'),
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-
 export default function TableProdutos() {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const classes = useStyles();
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
-    return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
-    );
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.name}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }

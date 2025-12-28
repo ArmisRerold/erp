@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-function Menu(props) {
+function Menu() {
   const statusMenu = localStorage.getItem("menu") || 0;
   console.log(statusMenu)
   const navigate = useNavigate();

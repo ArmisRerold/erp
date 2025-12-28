@@ -1,6 +1,8 @@
+import { use } from "react";
 import { useState } from "react";
 
-export default function SubMenu({ items, stateSubMenu, setStateSubMenu }) {
+export default function SubMenu({ items, stateSubMenu, setStateSubMenu}) {
+
   const div = [...items]
   
   return (
@@ -9,8 +11,9 @@ export default function SubMenu({ items, stateSubMenu, setStateSubMenu }) {
         <li
           key={index}
           className={`font-bold cursor-pointer text-black p-2 ${stateSubMenu == index?"bg-slate-200":"bg-slate-500"} `}
-          onClick={()=>{
+          onClick={(e)=>{
             setStateSubMenu(index)
+            e.target.value = index
           }}
         >
           {item}

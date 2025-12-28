@@ -2,6 +2,7 @@ import { TextField, Button, Paper, Link } from "@mui/material";
 import { useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 const theme = createTheme({
   palette: {
     mode: "dark", // "light" ou "dark"
@@ -57,7 +58,10 @@ export default function Login() {
             }}
           ></TextField>
 
-          <Button className="bg-slate-600 w-full" variant="contained">
+          <Button className="bg-slate-600 w-full" variant="contained" onClick={async()=>{
+            const response = await api.post("/login",{email, password})
+            console.log(response.data)
+          }}>
             Entrar
           </Button>
           <Button

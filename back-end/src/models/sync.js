@@ -21,5 +21,4 @@ async function sync() {
     console.error("Erro ao sincronizar:", error);
   }
 }
-
-sync();
+export default sync()

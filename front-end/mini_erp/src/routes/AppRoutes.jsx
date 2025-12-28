@@ -18,7 +18,7 @@ export default function AppRoutes() {
         <Route path="/Dashboard" element=<Home></Home> />
         <Route path="/login" element=<Login></Login> />
         <Route path="/singin" element=<SingIn></SingIn> />
-        <Route path="/financeiro" element=<DefaultLayout titlePage={"Financeiro"} children=<Financeiro></Financeiro>  ></DefaultLayout> />
+        <Route path="/financeiro" element={<><Financeiro></Financeiro></>}/>
         <Route path="/estoque" element=<Estoque></Estoque> />
         <Route path="/clientes" element=<Clientes></Clientes> />
         

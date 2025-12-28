@@ -1,8 +1,11 @@
 import Menu from "../components/Menu";
+import DefaultLayout from "../layouts/DefaultLayout"
 export default function Home() {
   return (
     <>
-      <h1>home</h1>
+      <DefaultLayout titlePage={"Dashboard"} children={<>
+        
+        </>}></DefaultLayout>
     </>
   );
 }
